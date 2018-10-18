@@ -27,10 +27,17 @@ body{
     color: black;
     margin: 20px;
     height: 200px;
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 
 #lblOutput{
-    margin-left: 4%;
+    margin-left: 5%;
+    
+    position: absolute;
+    font-size: 16px;
+    width: 80px;
+    color: white;
 }
 
 #input_container{
@@ -75,6 +82,8 @@ body{
         left:0; right:0;
         top:0; bottom:0;
         margin:auto;
-        
+}
 
+p {
+    margin-left: 20px;
 }
