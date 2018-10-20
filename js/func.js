@@ -22,7 +22,7 @@ $(document).ready(()=>{
         if(getLSB(Q) == '0' && C == '1'){
             AddBin(A, M); //not yet working
             shiftRight(A, Q, currA, currQ); //This will work after creating Shifting algorithm
-        }else if((getLSB(Q) == '1' && C == '0'){
+        }else if(getLSB(Q) == '1' && C == '0'){
             SubtractBin(A. M); //after creating AddBin algo, this will work
             shiftRight(A, Q, currA, currQ); //This will work after creating Shifting algorithm
         }else shiftRight(A, Q, currA, currQ);
