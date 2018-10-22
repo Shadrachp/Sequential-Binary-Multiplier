@@ -51,20 +51,19 @@ body{
     display: inline-block;
 }
 
-#btnSubmit{
+#btnSubmit, #btnNext{
     margin-top: 20px;
     border-radius: 5px;
     background-color: #afc6cc;
+    margin-left: 2px;
     height: 22px;
     width: 82px;
-    
 }
 
-#btnSubmit:hover{
+#btnSubmit:hover,
+#btnNext:hover{
     transition-duration: 0.1s;
-    height: 23px;
-    width: 84px;
-    
+     background-color: #738b91;
 }
 
 #txt_inputM:focus,
