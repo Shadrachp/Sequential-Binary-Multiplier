@@ -24,7 +24,8 @@ $(document).ready(()=>{
    });
     
     //TODO: Create Next Button for .html file
-     //executes 1 cycle.
+    //Maybe create a new button later to display all the steps involved per cycle
+    //executes 1 cycle.
     $("#btnNext").click((e)=>{
         if(n > 0){
             if(getLSB(currQ) == '0' && C == '1'){
@@ -65,9 +66,8 @@ $(document).ready(()=>{
     * @param M {String} - addend 2
     */
     function AddBin(A1, M){
-        //TODO: Simplify code if possible
+        //TODO: Recreate to a more efficient code?
         //AplusM algo
-        //Return result
         var curra = splitString(A1),
             m = splitString(M),
             sum = '',
