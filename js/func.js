@@ -1,7 +1,7 @@
 $(document).ready(()=>{
     var currA =[],
         currQ = [],
-        A, Q, M, C;
+        A, Q, M, C, n;
    $("#btnSubmit").click((e)=>{
       e.preventDefault();      
        //TODO: should also clear output field
@@ -10,11 +10,14 @@ $(document).ready(()=>{
             C = '0';
             Q = $("#txt_inputQ").val();
             M = $("#txt_inputM").val();
+            n = Q.length;
             currQ = splitString(Q);
             initA();
             $("#output").append(createElement(A, M, Q));
+            $("#btnNext").attr("disabled", false);
        }else{
            clearOutput();
+           $("#btnNext").attr("disabled", true);
            $("#output").append(createErrElement());
            //add some message that input is invalid
        }
@@ -23,16 +26,22 @@ $(document).ready(()=>{
     //TODO: Create Next Button for .html file
      //executes 1 cycle.
     $("#btnNext").click((e)=>{
-        if(getLSB(currQ) == '0' && C == '1'){
-            AddBin(A, M); //not yet working
-            console.log("add");
-            shiftRight(currA, currQ); //This will work after creating Shifting algorithm
-        }else if(getLSB(currQ) == '1' && C == '0'){
-            SubtractBin(A, M); //after creating AddBin algo, this will work
-            console.log("subtract");
-            shiftRight(currA, currQ); //This will work after creating Shifting algorithm
-        }else shiftRight(currA, currQ);
-        $("#output").append(createElement(A, M, Q));
+        if(n > 0){
+            if(getLSB(currQ) == '0' && C == '1'){
+                AddBin(A, M); //not yet working
+                console.log("add");
+                shiftRight(currA, currQ); //This will work after creating Shifting algorithm
+            }else if(getLSB(currQ) == '1' && C == '0'){
+                SubtractBin(A, M); //after creating AddBin algo, this will work
+                console.log("subtract");
+                shiftRight(currA, currQ); //This will work after creating Shifting algorithm
+            }else shiftRight(currA, currQ);
+            $("#output").append(createElement(A, M, Q));
+            n--;
+        }
+        if(n <= 0){ 
+            $("#btnNext").attr("disabled", true);
+        }
     });
     
     //TODO: Create Clear button for .html file use the id below
@@ -139,6 +148,10 @@ $(document).ready(()=>{
         return "<p>Invalid input detected!</p><br/>";
     }
         
+    /*
+    *
+    */
+    
     /**
     * Checks if the input is binary
     * @param input {String} - input of user either Q or M
