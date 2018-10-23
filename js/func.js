@@ -1,12 +1,13 @@
 $(document).ready(()=>{
-    var currA = [],
+    var currA =[],
         currQ = [],
-        A, Q, M, C = '0';
+        A, Q, M, C;
    $("#btnSubmit").click((e)=>{
       e.preventDefault();      
        //TODO: should also clear output field
        if(isBinary($("#txt_inputQ").val()) != null && isBinary($("#txt_inputM").val()) != null && isCountValid()){
            clearOutput();
+            C = '0';
             Q = $("#txt_inputQ").val();
             M = $("#txt_inputM").val();
             currQ = splitString(Q);
@@ -23,12 +24,14 @@ $(document).ready(()=>{
      //executes 1 cycle.
     $("#btnNext").click((e)=>{
         if(getLSB(currQ) == '0' && C == '1'){
-//            AddBin(A, M); //not yet working
-            shiftRight(A, Q, currA, currQ); //This will work after creating Shifting algorithm
+            AddBin(A, M); //not yet working
+            console.log("add");
+            shiftRight(currA, currQ); //This will work after creating Shifting algorithm
         }else if(getLSB(currQ) == '1' && C == '0'){
-//            SubtractBin(A, M); //after creating AddBin algo, this will work
-            shiftRight(A, Q, currA, currQ); //This will work after creating Shifting algorithm
-        }else shiftRight(A, Q, currA, currQ);
+            SubtractBin(A, M); //after creating AddBin algo, this will work
+            console.log("subtract");
+            shiftRight(currA, currQ); //This will work after creating Shifting algorithm
+        }else shiftRight(currA, currQ);
         $("#output").append(createElement(A, M, Q));
     });
     
@@ -47,15 +50,58 @@ $(document).ready(()=>{
         $("#output").empty();
     }
     
-    function AddBin(A, M){
-        //TODO
+    /**
+    * Adds two binary input
+    * @param A {String} - addend 1
+    * @param M {String} - addend 2
+    */
+    function AddBin(A1, M){
+        //TODO: Simplify code if possible
         //AplusM algo
         //Return result
-    }
+        var curra = splitString(A1),
+            m = splitString(M),
+            sum = '',
+            carry = 0;
+
+        matchBits(curra.length < m.length ? curra 
+                  : m, 
+                    curra.length < m.length ? m.length 
+                  : curra.length);    
         
+        for(i = m.length - 1; i >= 0; i--){
+            if(m[i] == '1' && curra[i] == '1'){
+                sum = (carry == '1' ? '1' : '0') + sum;
+                carry = '1';
+            }else if((m[i] == '0' && curra[i] == '1') || (m[i] == '1' && curra[i] == '0')){
+                const a = carry == '1' ? '0' : '1';
+                sum = a + sum;
+                carry = a == '0' ? '1' : '0';
+            }else sum = '0' + sum;
+        }
+        
+        A = sum;
+        currA = splitString(A); 
+    }
+     
+    
+    /*
+    * Matches the number of bits of the addend
+    * by 0 extension
+    * @param arr {String[]} - the addend to be extended
+    * @param count = count-arr.length will be the zeroes the be added
+    **/
+    function matchBits(arr, count){
+        var str = "";
+        count = count - arr.length;
+        for(var i = 0; i < count; i++)
+            str += '0';
+        arr = splitString(str + arrToString(arr));
+    }
+    
     function SubtractBin(A, M){
         var twos = arrToString(toTwosComplement(M));
-        return APlusM(A, twos);
+        AddBin(A, twos);
     }
         
     /*
@@ -71,7 +117,7 @@ $(document).ready(()=>{
     */ 
     function initA(){
         A = '';
-        for(var i = 0; i < Q.length; i++) A += '0';
+        for(var i = 0; i < M.length; i++) A += '0';
         currA = splitString(A);
     }
     
@@ -83,7 +129,7 @@ $(document).ready(()=>{
     */
     function createElement(A, M, Q){
         return "<p>M:" +M+" A:"  + A  +"&nbspQ:"+Q+
-        "</p>";
+        "&nbspC: "+ C +"</p>";
     }
     
     /*
@@ -110,6 +156,7 @@ $(document).ready(()=>{
     function toTwosComplement(input){
         var twos = splitString(input),
             flag = false;
+        console.log(input);
         for(var i = twos.length - 1; i >= 0; i--){
             if(flag)
                 twos[i] == '1' ? twos[i] = '0'
@@ -117,6 +164,7 @@ $(document).ready(()=>{
             if(twos[i] == '1' && !flag)
                 flag = !flag;
         }
+        console.log(twos);
         return twos;
     }
        
@@ -140,10 +188,10 @@ $(document).ready(()=>{
     * @param currQ {String} - 
     */
     function shiftRight(curra, currq){
-        initCurrentVar(A, Q, curra, currq);
         shiftingAlgorithm(currA, currQ);
         A = arrToString(currA);
         Q = arrToString(currQ);
+        initCurrentVar(curra, currq);
     }
     
     /**
@@ -156,29 +204,22 @@ $(document).ready(()=>{
     */
     function shiftingAlgorithm(curra, currq){
         // TODO: recreate to a more efficient code if possible
-        var lsb = getLSB(curra);
-        curra = shift(curra);
-        currq[0] = lsb;
-        C = getLSB(currq);
-        currq = shift(currq);
-        currA = curra;
-        currQ = currq;
-        A = arrToString(currA);
-        Q = arrToString(currQ);
+        const q = shift(curra);
+        C = shift(currq);
+        currq[0] = q;
     }
     
     /*
     * Part of the shiftingAlgorithm() function
     * @param curr {String[]} - input to be shifted
-    * returns the shifted input
+    * returns the extra bit shifted
     */
     function shift(curr){
-        for(var i = 1; i < curr.length; i++){
-            curr[i] = curr[i-1];
-            console.log(curr);
-        }
-        console.log(curr);
-        return curr;
+        temp = curr.slice();
+        lsb = getLSB(curr);
+        for(var i = 1; i < temp.length; i++)
+            curr[i] = temp[i - 1];
+        return lsb;
     }
     
     /**
@@ -186,7 +227,7 @@ $(document).ready(()=>{
     * @param A {String} - data to be stored to currA var
     * @param Q {String} - data to be stored to currQ var
     */
-    function initCurrentVar(A, Q, currA, currQ){
+    function initCurrentVar(currA, currQ){
         currA = splitString(A);
         currQ = splitString(Q);
     }
