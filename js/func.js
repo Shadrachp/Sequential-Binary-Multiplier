@@ -23,20 +23,19 @@ $(document).ready(()=>{
        }
    });
     
-    //TODO: Create Next Button for .html file
+    
     //Maybe create a new button later to display all the steps involved per cycle
     //executes 1 cycle.
     $("#btnNext").click((e)=>{
         if(n > 0){
             if(getLSB(currQ) == '0' && C == '1'){
-                AddBin(A, M); //not yet working
+                AddBin(A, M);
                 console.log("add");
-                shiftRight(); //This will work after creating Shifting algorithm
+                shiftRight();
             }else if(getLSB(currQ) == '1' && C == '0'){
-                SubtractBin(A, M); //after creating AddBin algo, this will work
+                SubtractBin(A, M); 
                 console.log("subtract");
-                if(n-1 ==1)
-                    shiftRight(); //This will work after creating Shifting algorithm
+                shiftRight();
             }else shiftRight(currA, currQ);
             $("#output").append(createElement(A, M, Q));
             n--;
