@@ -31,11 +31,11 @@ $(document).ready(()=>{
             if(getLSB(currQ) == '0' && C == '1'){
                 AddBin(A, M); //not yet working
                 console.log("add");
-                shiftRight(currA, currQ); //This will work after creating Shifting algorithm
+                shiftRight(); //This will work after creating Shifting algorithm
             }else if(getLSB(currQ) == '1' && C == '0'){
                 SubtractBin(A, M); //after creating AddBin algo, this will work
                 console.log("subtract");
-                shiftRight(currA, currQ); //This will work after creating Shifting algorithm
+                shiftRight(); //This will work after creating Shifting algorithm
             }else shiftRight(currA, currQ);
             $("#output").append(createElement(A, M, Q));
             n--;
@@ -99,7 +99,7 @@ $(document).ready(()=>{
     
     /*
     * Matches the number of bits of the addend
-    * by 0 extension
+    * by 0 extension (or should it be sign extension)
     * @param arr {String[]} - the addend to be extended
     * @param count = count-arr.length will be the zeroes the be added
     **/
@@ -203,11 +203,10 @@ $(document).ready(()=>{
     * @param currA {String} - 
     * @param currQ {String} - 
     */
-    function shiftRight(curra, currq){
+    function shiftRight(){
         shiftingAlgorithm(currA, currQ);
         A = arrToString(currA);
         Q = arrToString(currQ);
-        initCurrentVar(curra, currq);
     }
     
     /**
