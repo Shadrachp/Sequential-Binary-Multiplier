@@ -35,7 +35,8 @@ $(document).ready(()=>{
             }else if(getLSB(currQ) == '1' && C == '0'){
                 SubtractBin(A, M); //after creating AddBin algo, this will work
                 console.log("subtract");
-                shiftRight(); //This will work after creating Shifting algorithm
+                if(n!=1)
+                    shiftRight(); //This will work after creating Shifting algorithm
             }else shiftRight(currA, currQ);
             $("#output").append(createElement(A, M, Q));
             n--;
