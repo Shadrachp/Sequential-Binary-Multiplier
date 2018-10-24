@@ -86,7 +86,10 @@ $(document).ready(()=>{
                 const a = carry == '1' ? '0' : '1';
                 sum = a + sum;
                 carry = a == '0' ? '1' : '0';
-            }else sum = '0' + sum;
+            }else{
+                sum = carry + sum;
+                carry = '0';
+            }
         }
         
         A = sum;
