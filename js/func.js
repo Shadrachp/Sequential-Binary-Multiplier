@@ -10,13 +10,16 @@ $(document).ready(()=>{
            clearOutput();
             C = '0';
             Q = $("#txt_inputQ").val();
-            M = $("#txt_inputM").val();
-            matchBits(currQ.length < currM.length ? currQ
-                       : currM,
-                         currQ.length < currM.length ? currM.length
-                       : currQ.length);
+            M = $("#txt_inputM").val();     
             n = Q.length;
             currQ = splitString(Q); 
+            currM = splitString(M);
+            matchBits(currQ.length < currM.length ? currQ
+                      : currM,
+                        currQ.length < currM.length ? currM.length
+                      : currQ.length);
+            Q = arrToString(currQ);
+            M = arrToString(currM);
             initA();
             $("#output").append(createElement(A, M, Q));
             $("#btnNext").attr("disabled", false);
