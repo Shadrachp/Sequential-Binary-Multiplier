@@ -1,6 +1,7 @@
 $(document).ready(()=>{
     var currA =[],
         currQ = [],
+        currM = [],
         A, Q, M, C, n;
    $("#btnSubmit").click((e)=>{
       e.preventDefault();      
@@ -10,8 +11,12 @@ $(document).ready(()=>{
             C = '0';
             Q = $("#txt_inputQ").val();
             M = $("#txt_inputM").val();
+            matchBits(currQ.length < currM.length ? currQ
+                       : currM,
+                         currQ.length < currM.length ? currM.length
+                       : currQ.length);
             n = Q.length;
-            currQ = splitString(Q);
+            currQ = splitString(Q); 
             initA();
             $("#output").append(createElement(A, M, Q));
             $("#btnNext").attr("disabled", false);
@@ -72,11 +77,6 @@ $(document).ready(()=>{
             m = splitString(M),
             sum = '',
             carry = 0;
-
-        matchBits(curra.length < m.length ? curra 
-                  : m, 
-                    curra.length < m.length ? m.length 
-                  : curra.length);    
         
         for(i = m.length - 1; i >= 0; i--){
             if(m[i] == '1' && curra[i] == '1'){
