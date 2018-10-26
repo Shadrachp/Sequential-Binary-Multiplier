@@ -102,15 +102,17 @@ $(document).ready(()=>{
     
     /*
     * Matches the number of bits of the addend
-    * by 0 extension (or should it be sign extension)
+    * by sign extension
     * @param arr {String[]} - the addend to be extended
     * @param count = count-arr.length will be the zeroes the be added
     **/
     function matchBits(arr, count){
-        var str = "";
+        var str = "",
+            ext = arr[0];
+        
         count = count - arr.length;
         for(var i = 0; i < count; i++)
-            str += '0';
+            str += ext;
         arr = splitString(str + arrToString(arr));
     }
     
