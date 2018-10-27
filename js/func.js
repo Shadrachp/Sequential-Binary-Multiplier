@@ -17,7 +17,8 @@ $(document).ready(()=>{
             matchBits(currQ.length < currM.length ? currQ
                       : currM,
                         currQ.length < currM.length ? currM.length
-                      : currQ.length);
+                      : currQ.length > currM.length ? currQ.length
+                      : 0);
             Q = arrToString(currQ);
             M = arrToString(currM);
             initA();
