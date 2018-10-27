@@ -14,7 +14,9 @@ $(document).ready(()=>{
             n = Q.length;
             currQ = splitString(Q); 
             currM = splitString(M);
-            matchBits(currQ.length < currM.length ? currQ
+            (currQ.length < currM.length ? currQ
+            : currQ.length > currM.length ? currM
+            : var dummy) = matchBits(currQ.length < currM.length ? currQ
                       : currM,
                         currQ.length < currM.length ? currM.length
                       : currQ.length > currM.length ? currQ.length
@@ -114,9 +116,7 @@ $(document).ready(()=>{
         count = count - arr.length;
         for(var i = 0; i < count; i++)
             str += ext;
-        
-        arr = splitString(str + arrToString(arr));
-        $("#output").append(arrToString(arr));
+        return splitString(str + arrToString(arr));
     }
     
     function SubtractBin(A, M){
