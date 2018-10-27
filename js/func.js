@@ -114,7 +114,9 @@ $(document).ready(()=>{
         count = count - arr.length;
         for(var i = 0; i < count; i++)
             str += ext;
+        
         arr = splitString(str + arrToString(arr));
+        $("#output").append(arrToString(arr));
     }
     
     function SubtractBin(A, M){
