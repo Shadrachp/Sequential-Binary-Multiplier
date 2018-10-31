@@ -8,23 +8,26 @@ $(document).ready(()=>{
        //TODO: should also clear output field
        if(isBinary($("#txt_inputQ").val()) != null && isBinary($("#txt_inputM").val()) != null && isCountValid()){
            clearOutput();
-//            var dummy;
+            var dummy = ["0"];
             C = '0';
             Q = $("#txt_inputQ").val();
             M = $("#txt_inputM").val();     
-            n = Q.length;
             currQ = splitString(Q); 
             currM = splitString(M);
-      
-//             (currQ.length < currM.length ? currQ
-//             : currQ.length > currM.length ? currM
-//             : dummy) = matchBits(currQ.length < currM.length ? currQ
-//                       : currM,
-//                         currQ.length < currM.length ? currM.length
-//                       : currQ.length > currM.length ? currQ.length
-//                       : 0);
-//             Q = arrToString(currQ);
-//             M = arrToString(currM);
+           
+           //refactor this code later
+            if(currQ.length < currM.length)
+             currQ = assignVar((currQ.length < currM.length ? currQ
+             : currQ.length > currM.length ? currM
+             : dummy));
+            else if(currQ.length > currM.length)
+            currM = (currQ.length < currM.length ? currQ
+             : currQ.length > currM.length ? currM
+             : dummy)
+            
+             Q = arrToString(currQ);
+             M = arrToString(currM);
+            n = Q.length;
             initA();
             $("#output").append(createElement(A, M, Q));
             $("#btnNext").attr("disabled", false);
@@ -57,6 +60,14 @@ $(document).ready(()=>{
             $("#btnNext").attr("disabled", true);
         }
     });
+    
+    function assignVar(arr){
+       return matchBits(currQ.length < currM.length ? currQ
+                       : currM,
+                         currQ.length < currM.length ? currM.length
+                       : currQ.length > currM.length ? currQ.length
+                       : 0);
+    }
     
     //TODO: Create Clear button for .html file use the id below
     $("#btnClear").click((e)=>{
