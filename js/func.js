@@ -23,8 +23,8 @@ $(document).ready(()=>{
 //                         currQ.length < currM.length ? currM.length
 //                       : currQ.length > currM.length ? currQ.length
 //                       : 0);
-            Q = arrToString(currQ);
-            M = arrToString(currM);
+//             Q = arrToString(currQ);
+//             M = arrToString(currM);
             initA();
             $("#output").append(createElement(A, M, Q));
             $("#btnNext").attr("disabled", false);
