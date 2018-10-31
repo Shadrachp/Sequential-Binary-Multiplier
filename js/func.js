@@ -8,7 +8,7 @@ $(document).ready(()=>{
        //TODO: should also clear output field
        if(isBinary($("#txt_inputQ").val()) != null && isBinary($("#txt_inputM").val()) != null && isCountValid()){
            clearOutput();
-           var dummy;
+//            var dummy;
             C = '0';
             Q = $("#txt_inputQ").val();
             M = $("#txt_inputM").val();     
@@ -16,13 +16,13 @@ $(document).ready(()=>{
             currQ = splitString(Q); 
             currM = splitString(M);
       
-            (currQ.length < currM.length ? currQ
-            : currQ.length > currM.length ? currM
-            : dummy) = matchBits(currQ.length < currM.length ? currQ
-                      : currM,
-                        currQ.length < currM.length ? currM.length
-                      : currQ.length > currM.length ? currQ.length
-                      : 0);
+//             (currQ.length < currM.length ? currQ
+//             : currQ.length > currM.length ? currM
+//             : dummy) = matchBits(currQ.length < currM.length ? currQ
+//                       : currM,
+//                         currQ.length < currM.length ? currM.length
+//                       : currQ.length > currM.length ? currQ.length
+//                       : 0);
             Q = arrToString(currQ);
             M = arrToString(currM);
             initA();
