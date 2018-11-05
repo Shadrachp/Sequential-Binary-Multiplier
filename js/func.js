@@ -21,7 +21,7 @@ $(document).ready(()=>{
              : currQ.length > currM.length ? currM
              : dummy));
             else if(currQ.length > currM.length)
-            currM = (currQ.length < currM.length ? currQ
+             currM = assignVar(currQ.length < currM.length ? currQ
              : currQ.length > currM.length ? currM
              : dummy)
             
